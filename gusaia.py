@@ -12,7 +12,7 @@ class Encoder(nn.Module):
         self.layer3 = nn.Linear(int(in_size / 4), latent_size)
         self.relu = nn.ReLU(True)
 
-    def feedForward(self, w):
+    def forward(self, w):
         out = self.layer1(w)
         out = self.relu(out)
         out = self.layer2(out)
@@ -31,7 +31,7 @@ class Decoder(nn.Module):
         self.relu = nn.ReLU(True)
         self.sigmoid = nn.Sigmoid()
 
-    def feedForward(self, z):
+    def forward(self, z):
         out = self.layer1(z)
         out = self.relu(out)
         out = self.layer2(out)
