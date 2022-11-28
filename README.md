@@ -1,6 +1,6 @@
 # GAN-based Unsupervised Anomaly Identification Architecture (GUSAIA)
 
-To be published in IEEE Transactions Journal
+To be published in IISE Transactions Journal
 
 ## How to cite
 
