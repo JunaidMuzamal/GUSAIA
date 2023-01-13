@@ -6,24 +6,29 @@ import re
 import sys
 import unicodedata
 
+import re
 from urllib.request import Request, urlopen
 
+# URL templates for different types of Google Drive items
 ITEM_URL = 'https://drive.google.com/open?id={id}'
 FILE_URL = 'https://docs.google.com/uc?export=download&id={id}&confirm={confirm}'
 FOLDER_URL = 'https://drive.google.com/drive/folders/{id}'
 
+# Regular expressions for extracting the item ID from different types of URLs
 ID_PATTERNS = [
     re.compile('/file/d/([0-9A-Za-z_-]{10,})(?:/|$)', re.IGNORECASE),
     re.compile('id=([0-9A-Za-z_-]{10,})(?:&|$)', re.IGNORECASE),
     re.compile('([0-9A-Za-z_-]{10,})', re.IGNORECASE)
 ]
-FILE_PATTERN = re.compile("itemJson: (\[.*?)};</script>",
-                          re.DOTALL | re.IGNORECASE)
-FOLDER_PATTERN = re.compile("window\['_DRIVE_ivd'\] = '(.*?)';",
-                            re.DOTALL | re.IGNORECASE)
-CONFIRM_PATTERN = re.compile("download_warning[0-9A-Za-z_-]+=([0-9A-Za-z_-]+);",
-                             re.IGNORECASE)
+
+# Regular expressions for extracting data from the HTML of a Google Drive item page
+FILE_PATTERN = re.compile("itemJson: (\[.*?)};</script>", re.DOTALL | re.IGNORECASE)
+FOLDER_PATTERN = re.compile("window\['_DRIVE_ivd'\] = '(.*?)';", re.DOTALL | re.IGNORECASE)
+CONFIRM_PATTERN = re.compile("download_warning[0-9A-Za-z_-]+=([0-9A-Za-z_-]+);", re.IGNORECASE)
+
+# MIME type for Google Drive folders
 FOLDER_TYPE = 'application/vnd.google-apps.folder'
+
 
 def output(text):
     try:

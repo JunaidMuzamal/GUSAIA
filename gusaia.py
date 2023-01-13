@@ -3,7 +3,6 @@ from utils import *
 
 device = get_default_device()
 
-
 class Encoder(nn.Module):
     def __init__(self, in_size, latent_size):
         super().__init__()
@@ -20,7 +19,6 @@ class Encoder(nn.Module):
         out = self.layer3(out)
         z = self.relu(out)
         return z
-
 
 class Decoder(nn.Module):
     def __init__(self, latent_size, out_size):
@@ -106,7 +104,6 @@ def fit(epochs, model, train_loader, val_loader, opt_func=torch.optim.Adam):
         model.printLoss(epoch, result)
         history.append(result)
     return history
-
 
 def validate(model, test_loader, alpha=.5, beta=.5):
     results = []
